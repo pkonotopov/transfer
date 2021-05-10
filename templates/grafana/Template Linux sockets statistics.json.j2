@@ -1,0 +1,158 @@
+{
+    "zabbix_export": {
+        "groups": [
+            {
+                "name": "Templates/InCountry"
+            }
+        ],
+        "templates": [
+            {
+                "applications": [
+                    {
+                        "name": "Network"
+                    }
+                ],
+                "description": "Collects information about open sockets count",
+                "discovery_rules": [
+                    {
+                        "delay": "2m",
+                        "key": "sockstat.discovery",
+                        "lifetime": "1d",
+                        "name": "Socket statistics discovery",
+                        "type": "ZABBIX_ACTIVE"
+                    }
+                ],
+                "groups": [
+                    {
+                        "name": "Templates/InCountry"
+                    }
+                ],
+                "items": [
+                    {
+                        "applications": [
+                            {
+                                "name": "Network"
+                            }
+                        ],
+                        "delay": "0",
+                        "history": "2w",
+                        "key": "sockstat[tcp,CLOSED]",
+                        "name": "TCP sockets in CLOSED state",
+                        "type": "TRAP"
+                    },
+                    {
+                        "applications": [
+                            {
+                                "name": "Network"
+                            }
+                        ],
+                        "delay": "0",
+                        "history": "2w",
+                        "key": "sockstat[tcp,CLOSE_WAIT]",
+                        "name": "TCP sockets in CLOSE_WAIT state",
+                        "type": "TRAP"
+                    },
+                    {
+                        "applications": [
+                            {
+                                "name": "Network"
+                            }
+                        ],
+                        "delay": "0",
+                        "history": "2w",
+                        "key": "sockstat[tcp,ESTABLISHED]",
+                        "name": "TCP sockets in ESTABLISHED state",
+                        "type": "TRAP"
+                    },
+                    {
+                        "applications": [
+                            {
+                                "name": "Network"
+                            }
+                        ],
+                        "delay": "0",
+                        "history": "2w",
+                        "key": "sockstat[tcp,FIN_WAIT1]",
+                        "name": "TCP sockets in FIN_WAIT1 state",
+                        "type": "TRAP"
+                    },
+                    {
+                        "applications": [
+                            {
+                                "name": "Network"
+                            }
+                        ],
+                        "delay": "0",
+                        "history": "2w",
+                        "key": "sockstat[tcp,FIN_WAIT2]",
+                        "name": "TCP sockets in FIN_WAIT2 state",
+                        "type": "TRAP"
+                    },
+                    {
+                        "applications": [
+                            {
+                                "name": "Network"
+                            }
+                        ],
+                        "delay": "0",
+                        "history": "2w",
+                        "key": "sockstat[tcp,LAST_ACK]",
+                        "name": "TCP sockets in LAST_ACK state",
+                        "type": "TRAP"
+                    },
+                    {
+                        "applications": [
+                            {
+                                "name": "Network"
+                            }
+                        ],
+                        "delay": "0",
+                        "history": "2w",
+                        "key": "sockstat[tcp,LISTEN]",
+                        "name": "TCP sockets in LISTEN state",
+                        "type": "TRAP"
+                    },
+                    {
+                        "applications": [
+                            {
+                                "name": "Network"
+                            }
+                        ],
+                        "delay": "0",
+                        "history": "2w",
+                        "key": "sockstat[tcp,SYN_RECV]",
+                        "name": "TCP sockets in SYN_RECV state",
+                        "type": "TRAP"
+                    },
+                    {
+                        "applications": [
+                            {
+                                "name": "Network"
+                            }
+                        ],
+                        "delay": "0",
+                        "history": "2w",
+                        "key": "sockstat[tcp,SYN_SENT]",
+                        "name": "TCP sockets in SYN_SENT state",
+                        "type": "TRAP"
+                    },
+                    {
+                        "applications": [
+                            {
+                                "name": "Network"
+                            }
+                        ],
+                        "delay": "0",
+                        "history": "2w",
+                        "key": "sockstat[tcp,TIME_WAIT]",
+                        "name": "TCP sockets in TIME_WAIT state",
+                        "type": "TRAP"
+                    }
+                ],
+                "name": "Template Linux sockets statistics",
+                "template": "Template Linux sockets statistics"
+            }
+        ],
+        "version": "5.2"
+    }
+}

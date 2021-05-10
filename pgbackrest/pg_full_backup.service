@@ -1,0 +1,7 @@
+[Unit]
+Description=PostgreSQL full backup
+
+[Service]
+Type=simple
+User=postgres
+ExecStart=/etc/pgbackrest/scripts/pg_backup.sh --full
