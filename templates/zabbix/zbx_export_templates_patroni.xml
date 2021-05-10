@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
-    <version>5.2</version>
-    <date>2021-05-10T05:49:16Z</date>
+    <version>4.4</version>
+    <date>2020-12-18T08:50:13Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -35,15 +35,11 @@
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <parameters>
-                                <parameter>$.cluster_unlocked</parameter>
-                            </parameters>
+                            <params>$.cluster_unlocked</params>
                         </step>
                         <step>
                             <type>BOOL_TO_DECIMAL</type>
-                            <parameters>
-                                <parameter/>
-                            </parameters>
+                            <params/>
                         </step>
                     </preprocessing>
                     <master_item>
@@ -63,9 +59,7 @@
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <parameters>
-                                <parameter>$.db_port_check_failed_cluster_members</parameter>
-                            </parameters>
+                            <params>$.db_port_check_failed_cluster_members</params>
                         </step>
                     </preprocessing>
                     <master_item>
@@ -152,9 +146,7 @@
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <parameters>
-                                <parameter>$.patroni_monitoring_error</parameter>
-                            </parameters>
+                            <params>$.patroni_monitoring_error</params>
                         </step>
                     </preprocessing>
                     <master_item>
@@ -177,9 +169,7 @@
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <parameters>
-                                <parameter>$.patroni_monitoring_state</parameter>
-                            </parameters>
+                            <params>$.patroni_monitoring_state</params>
                         </step>
                     </preprocessing>
                     <master_item>
@@ -194,7 +184,7 @@
                             <dependencies>
                                 <dependency>
                                     <name>Zabbix agent on {HOST.NAME} is unreachable for 5 minutes</name>
-                                    <expression>{Linux by Zabbix agent active:agent.ping.nodata(5m)}=1</expression>
+                                    <expression>{Template OS Linux - Active:agent.ping.nodata(5m)}=1</expression>
                                 </dependency>
                             </dependencies>
                             <tags>
@@ -221,9 +211,7 @@
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <parameters>
-                                <parameter>$.role</parameter>
-                            </parameters>
+                            <params>$.role</params>
                         </step>
                     </preprocessing>
                     <master_item>
@@ -245,15 +233,11 @@
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <parameters>
-                                <parameter>$.patroni.scope</parameter>
-                            </parameters>
+                            <params>$.patroni.scope</params>
                         </step>
                         <step>
                             <type>DISCARD_UNCHANGED_HEARTBEAT</type>
-                            <parameters>
-                                <parameter>5m</parameter>
-                            </parameters>
+                            <params>5m</params>
                         </step>
                     </preprocessing>
                     <master_item>
@@ -276,9 +260,7 @@
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <parameters>
-                                <parameter>$.state</parameter>
-                            </parameters>
+                            <params>$.state</params>
                         </step>
                     </preprocessing>
                     <master_item>
@@ -320,15 +302,11 @@
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <parameters>
-                                <parameter>$.patroni.version</parameter>
-                            </parameters>
+                            <params>$.patroni.version</params>
                         </step>
                         <step>
                             <type>DISCARD_UNCHANGED_HEARTBEAT</type>
-                            <parameters>
-                                <parameter>5m</parameter>
-                            </parameters>
+                            <params>5m</params>
                         </step>
                     </preprocessing>
                     <master_item>
@@ -348,9 +326,7 @@
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <parameters>
-                                <parameter>$.visible_cluster_members</parameter>
-                            </parameters>
+                            <params>$.visible_cluster_members</params>
                         </step>
                     </preprocessing>
                     <master_item>

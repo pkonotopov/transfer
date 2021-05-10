@@ -1,0 +1,1150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>4.4</version>
+    <date>2020-12-18T08:50:04Z</date>
+    <groups>
+        <group>
+            <name>Templates</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Template PostgreSQL - Active</template>
+            <name>Template PostgreSQL - Active</name>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>PostgreSQL</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>BGWriter buffers allocated</name>
+                    <type>TRAP</type>
+                    <key>pgsql.bgwriter.buffers_alloc</key>
+                    <delay>0</delay>
+                    <history>1w</history>
+                    <description>Number of buffers allocated</description>
+                    <applications>
+                        <application>
+                            <name>PostgreSQL</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>BGWriter buffers backend</name>
+                    <type>TRAP</type>
+                    <key>pgsql.bgwriter.buffers_backend</key>
+                    <delay>0</delay>
+                    <history>1w</history>
+                    <description>Number of buffers written directly by a backend</description>
+                    <applications>
+                        <application>
+                            <name>PostgreSQL</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>BGWriter buffers backend fsync</name>
+                    <type>TRAP</type>
+                    <key>pgsql.bgwriter.buffers_backend_fsync</key>
+                    <delay>0</delay>
+                    <history>1w</history>
+                    <description>Number of times a backend had to execute its own fsync call (normally the background writer handles those even when the backend does its own write)</description>
+                    <applications>
+                        <application>
+                            <name>PostgreSQL</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>BGWriter buffers checkpoint</name>
+                    <type>TRAP</type>
+                    <key>pgsql.bgwriter.buffers_checkpoint</key>
+                    <delay>0</delay>
+                    <history>1w</history>
+                    <description>Number of buffers written during checkpoints</description>
+                    <applications>
+                        <application>
+                            <name>PostgreSQL</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>BGWriter buffers clean</name>
+                    <type>TRAP</type>
+                    <key>pgsql.bgwriter.buffers_clean</key>
+                    <delay>0</delay>
+                    <history>1w</history>
+                    <description>Number of buffers written by the background writer</description>
+                    <applications>
+                        <application>
+                            <name>PostgreSQL</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>BGWriter requested checkpoints</name>
+                    <type>TRAP</type>
+                    <key>pgsql.bgwriter.checkpoints_req</key>
+                    <delay>0</delay>
+                    <history>1w</history>
+                    <description>Number of requested checkpoints that have been performed</description>
+                    <applications>
+                        <application>
+                            <name>PostgreSQL</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>BGWriter scheduled checkpoints</name>
+                    <type>TRAP</type>
+                    <key>pgsql.bgwriter.checkpoints_timed</key>
+                    <delay>0</delay>
+                    <history>1w</history>
+                    <description>Number of scheduled checkpoints that have been performed</description>
+                    <applications>
+                        <application>
+                            <name>PostgreSQL</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>BGWriter checkpoints sync time</name>
+                    <type>TRAP</type>
+                    <key>pgsql.bgwriter.checkpoint_sync_time</key>
+                    <delay>0</delay>
+                    <history>1w</history>
+                    <value_type>FLOAT</value_type>
+                    <description>Total amount of time that has been spent in the portion of checkpoint processing where files are synchronized to disk, in milliseconds</description>
+                    <applications>
+                        <application>
+                            <name>PostgreSQL</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>BGWriter checkpoints write time</name>
+                    <type>TRAP</type>
+                    <key>pgsql.bgwriter.checkpoint_write_time</key>
+                    <delay>0</delay>
+                    <history>1w</history>
+                    <value_type>FLOAT</value_type>
+                    <description>Total amount of time that has been spent in the portion of checkpoint processing where files are written to disk, in milliseconds</description>
+                    <applications>
+                        <application>
+                            <name>PostgreSQL</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>BGWriter maxwritten clean</name>
+                    <type>TRAP</type>
+                    <key>pgsql.bgwriter.maxwritten_clean</key>
+                    <delay>0</delay>
+                    <history>1w</history>
+                    <description>Number of times the background writer stopped a cleaning scan because it had written too many buffers</description>
+                    <applications>
+                        <application>
+                            <name>PostgreSQL</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Collector availability</name>
+                    <type>CALCULATED</type>
+                    <key>pgsql.collector.availability</key>
+                    <history>14d</history>
+                    <params>1-nodata(&quot;pgsql.db.availability&quot;, 120)</params>
+                    <description>Shows is metrics collector is available</description>
+                    <applications>
+                        <application>
+                            <name>PostgreSQL</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Service state</name>
+                    </valuemap>
+                    <triggers>
+                        <trigger>
+                            <expression>{max(10m)}=0 or {nodata(300)}=1</expression>
+                            <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                            <recovery_expression>{max(10m)}=1 and {nodata(600)}=0</recovery_expression>
+                            <name>PostgreSQL metrics collector not available on {HOST.NAME} for 10 mins</name>
+                            <url>https://wiki</url>
+                            <priority>HIGH</priority>
+                            <dependencies>
+                                <dependency>
+                                    <name>Zabbix agent on {HOST.NAME} is unreachable for 5 minutes</name>
+                                    <expression>{Template OS Linux - Active:agent.ping.nodata(5m)}=1</expression>
+                                </dependency>
+                            </dependencies>
+                            <tags>
+                                <tag>
+                                    <tag>team</tag>
+                                    <value>Operations-Monitoring</value>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Last collector error</name>
+                    <type>TRAP</type>
+                    <key>pgsql.collector.last_error</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <description>Shows last db connection error</description>
+                    <applications>
+                        <application>
+                            <name>PostgreSQL</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Connections active</name>
+                    <type>TRAP</type>
+                    <key>pgsql.connections.active</key>
+                    <delay>0</delay>
+                    <history>14d</history>
+                    <description>Number of connections in active state</description>
+                    <applications>
+                        <application>
+                            <name>PostgreSQL</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Connections idle</name>
+                    <type>TRAP</type>
+                    <key>pgsql.connections.idle</key>
+                    <delay>0</delay>
+                    <history>14d</history>
+                    <description>Number of connections in idle state</description>
+                    <applications>
+                        <application>
+                            <name>PostgreSQL</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Connections idle in transaction</name>
+                    <type>TRAP</type>
+                    <key>pgsql.connections.idle_in_transaction</key>
+                    <delay>0</delay>
+                    <history>14d</history>
+                    <description>Number of connections in Idle in transaction state</description>
+                    <applications>
+                        <application>
+                            <name>PostgreSQL</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Connections max</name>
+                    <type>TRAP</type>
+                    <key>pgsql.connections.max</key>
+                    <delay>0</delay>
+                    <history>14d</history>
+                    <description>Max allowed number of connections</description>
+                    <applications>
+                        <application>
+                            <name>PostgreSQL</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Connections total</name>
+                    <type>TRAP</type>
+                    <key>pgsql.connections.total</key>
+                    <delay>0</delay>
+                    <history>14d</history>
+                    <description>Total number of connections</description>
+                    <applications>
+                        <application>
+                            <name>PostgreSQL</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Connections used percent</name>
+                    <type>TRAP</type>
+                    <key>pgsql.connections.total_pct_used</key>
+                    <delay>0</delay>
+                    <history>14d</history>
+                    <value_type>FLOAT</value_type>
+                    <units>%</units>
+                    <description>Percent of connection used</description>
+                    <applications>
+                        <application>
+                            <name>PostgreSQL</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Connections waiting</name>
+                    <type>TRAP</type>
+                    <key>pgsql.connections.waiting</key>
+                    <delay>0</delay>
+                    <history>14d</history>
+                    <description>Connections in waiting state</description>
+                    <applications>
+                        <application>
+                            <name>PostgreSQL</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>DB availability</name>
+                    <type>TRAP</type>
+                    <key>pgsql.db.availability</key>
+                    <delay>0</delay>
+                    <history>14d</history>
+                    <applications>
+                        <application>
+                            <name>PostgreSQL</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Service state</name>
+                    </valuemap>
+                </item>
+                <item>
+                    <name>DB uptime seconds</name>
+                    <type>TRAP</type>
+                    <key>pgsql.db.uptime_seconds</key>
+                    <delay>0</delay>
+                    <history>1w</history>
+                    <units>uptime</units>
+                    <applications>
+                        <application>
+                            <name>PostgreSQL</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{max(2m)}&lt;300&#13;
+and &#13;
+{nodata(120)}=0</expression>
+                            <name>PostgreSQL database restarted on {HOST.NAME}</name>
+                            <url>https://wiki</url>
+                            <priority>HIGH</priority>
+                            <description>Uptime for database is lower than 5 minutes, it mean that database was restarted recently.</description>
+                            <tags>
+                                <tag>
+                                    <tag>team</tag>
+                                    <value>Operations-DBA</value>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>HA status</name>
+                    <type>TRAP</type>
+                    <key>pgsql.ha.status</key>
+                    <delay>0</delay>
+                    <history>14d</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <applications>
+                        <application>
+                            <name>PostgreSQL</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>is_RDS</name>
+                    <type>TRAP</type>
+                    <key>pgsql.rds</key>
+                    <delay>0</delay>
+                    <history>3d</history>
+                    <description>Checks specific for RDS user</description>
+                    <applications>
+                        <application>
+                            <name>PostgreSQL</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Replication slots inactive</name>
+                    <type>TRAP</type>
+                    <key>pgsql.slots.inactive</key>
+                    <delay>0</delay>
+                    <history>14d</history>
+                    <applications>
+                        <application>
+                            <name>PostgreSQL</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Replication slots total</name>
+                    <type>TRAP</type>
+                    <key>pgsql.slots.total</key>
+                    <delay>0</delay>
+                    <history>14d</history>
+                    <applications>
+                        <application>
+                            <name>PostgreSQL</name>
+                        </application>
+                    </applications>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>PostgreSQL databases discovery</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>pgsql.db.discovery</key>
+                    <lifetime>1w</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>DB:{#DBNAME} disk block cache hits</name>
+                            <type>TRAP</type>
+                            <key>pgsql.dbstat.blks_hit[{#DBNAME}]</key>
+                            <delay>0</delay>
+                            <history>1w</history>
+                            <description>Number of times disk blocks were found already in the buffer cache, so that a read was not necessary</description>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>DB:{#DBNAME} disk blocks read</name>
+                            <type>TRAP</type>
+                            <key>pgsql.dbstat.blks_read[{#DBNAME}]</key>
+                            <delay>0</delay>
+                            <history>1w</history>
+                            <description>Number of disk blocks read in this database</description>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>DB:{#DBNAME} data blocks read time</name>
+                            <type>TRAP</type>
+                            <key>pgsql.dbstat.blk_read_time[{#DBNAME}]</key>
+                            <delay>0</delay>
+                            <history>1w</history>
+                            <value_type>FLOAT</value_type>
+                            <units>ms</units>
+                            <description>Time spent reading data file blocks by backends in this database, in milliseconds</description>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>DB:{#DBNAME} data blocks write time</name>
+                            <type>TRAP</type>
+                            <key>pgsql.dbstat.blk_write_time[{#DBNAME}]</key>
+                            <delay>0</delay>
+                            <history>1w</history>
+                            <value_type>FLOAT</value_type>
+                            <units>ms</units>
+                            <description>Time spent writing data file blocks by backends in this database, in milliseconds</description>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>DB:{#DBNAME} conflicts</name>
+                            <type>TRAP</type>
+                            <key>pgsql.dbstat.conflicts[{#DBNAME}]</key>
+                            <delay>0</delay>
+                            <history>1w</history>
+                            <description>Number of queries canceled due to conflicts with recovery in this database  since last statistics reset. Conflicts occur only on standby servers</description>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>DB:{#DBNAME} deadlocks</name>
+                            <type>TRAP</type>
+                            <key>pgsql.dbstat.deadlocks[{#DBNAME}]</key>
+                            <delay>0</delay>
+                            <history>1w</history>
+                            <description>Number of deadlocks detected in this database</description>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>DB:{#DBNAME} locks - row access exclusive</name>
+                            <type>TRAP</type>
+                            <key>pgsql.dbstat.locks.access_exclusive[{#DBNAME}]</key>
+                            <delay>0</delay>
+                            <history>1w</history>
+                            <description>Access exclusive locks on database</description>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>DB:{#DBNAME} locks - access share</name>
+                            <type>TRAP</type>
+                            <key>pgsql.dbstat.locks.access_share[{#DBNAME}]</key>
+                            <delay>0</delay>
+                            <history>1w</history>
+                            <description>Access share locks on database</description>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>DB:{#DBNAME} locks - exclusive</name>
+                            <type>TRAP</type>
+                            <key>pgsql.dbstat.locks.exclusive[{#DBNAME}]</key>
+                            <delay>0</delay>
+                            <history>1w</history>
+                            <description>Exclusive locks on database</description>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>DB:{#DBNAME} locks - row exclusive</name>
+                            <type>TRAP</type>
+                            <key>pgsql.dbstat.locks.row_exclusive[{#DBNAME}]</key>
+                            <delay>0</delay>
+                            <history>1w</history>
+                            <description>Row exclusive locks on database</description>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>DB:{#DBNAME} locks - row share</name>
+                            <type>TRAP</type>
+                            <key>pgsql.dbstat.locks.row_share[{#DBNAME}]</key>
+                            <delay>0</delay>
+                            <history>1w</history>
+                            <description>Row share locks on database</description>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>DB:{#DBNAME} locks - share</name>
+                            <type>TRAP</type>
+                            <key>pgsql.dbstat.locks.share[{#DBNAME}]</key>
+                            <delay>0</delay>
+                            <history>1w</history>
+                            <description>Share locks on database</description>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>DB:{#DBNAME} locks - share row exclusive</name>
+                            <type>TRAP</type>
+                            <key>pgsql.dbstat.locks.share_row_exclusive[{#DBNAME}]</key>
+                            <delay>0</delay>
+                            <history>1w</history>
+                            <description>Share row exclusive locks on database</description>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>DB:{#DBNAME} locks - share update exclusive</name>
+                            <type>TRAP</type>
+                            <key>pgsql.dbstat.locks.share_update_exclusive[{#DBNAME}]</key>
+                            <delay>0</delay>
+                            <history>1w</history>
+                            <description>Share update exclusive locks on database</description>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>DB:{#DBNAME} number of backends</name>
+                            <type>TRAP</type>
+                            <key>pgsql.dbstat.numbackends[{#DBNAME}]</key>
+                            <delay>0</delay>
+                            <history>1w</history>
+                            <description>Number of backends currently connected to this database</description>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>DB:{#DBNAME} size</name>
+                            <type>TRAP</type>
+                            <key>pgsql.dbstat.size[{#DBNAME}]</key>
+                            <delay>0</delay>
+                            <history>1w</history>
+                            <units>B</units>
+                            <description>Size of database</description>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>DB:{#DBNAME} temp bytes</name>
+                            <type>TRAP</type>
+                            <key>pgsql.dbstat.temp_bytes[{#DBNAME}]</key>
+                            <delay>0</delay>
+                            <history>1w</history>
+                            <units>B</units>
+                            <description>Total amount of data written to temporary files by queries in this database. All temporary files are counted, regardless of why the temporary file was created, and regardless of the log_temp_files setting</description>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>DB:{#DBNAME} temp files</name>
+                            <type>TRAP</type>
+                            <key>pgsql.dbstat.temp_files[{#DBNAME}]</key>
+                            <delay>0</delay>
+                            <history>1w</history>
+                            <units>B</units>
+                            <description>Number of temporary files created by queries in this database. All temporary files are counted, regardless of why the temporary file was created (e.g., sorting or hashing), and regardless of the log_temp_files setting</description>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>DB:{#DBNAME} rows deleted</name>
+                            <type>TRAP</type>
+                            <key>pgsql.dbstat.tup_deleted[{#DBNAME}]</key>
+                            <delay>0</delay>
+                            <history>1w</history>
+                            <description>Number of rows deleted by queries in this database</description>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>DB:{#DBNAME} rows fetched</name>
+                            <type>TRAP</type>
+                            <key>pgsql.dbstat.tup_fetched[{#DBNAME}]</key>
+                            <delay>0</delay>
+                            <history>1w</history>
+                            <description>Number of rows fetched by queries in this database</description>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>DB:{#DBNAME} rows inserted</name>
+                            <type>TRAP</type>
+                            <key>pgsql.dbstat.tup_inserted[{#DBNAME}]</key>
+                            <delay>0</delay>
+                            <history>1w</history>
+                            <description>Number of rows inserted by queries in this database</description>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>DB:{#DBNAME} rows returned</name>
+                            <type>TRAP</type>
+                            <key>pgsql.dbstat.tup_returned[{#DBNAME}]</key>
+                            <delay>0</delay>
+                            <history>1w</history>
+                            <description>Number of rows returned by queries in this database</description>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>DB:{#DBNAME} rows updated</name>
+                            <type>TRAP</type>
+                            <key>pgsql.dbstat.tup_updated[{#DBNAME}]</key>
+                            <delay>0</delay>
+                            <history>1w</history>
+                            <description>Number of rows updated by queries in this database</description>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>DB:{#DBNAME} transactions commited</name>
+                            <type>TRAP</type>
+                            <key>pgsql.dbstat.xact_commit[{#DBNAME}]</key>
+                            <delay>0</delay>
+                            <history>1w</history>
+                            <description>Number of transactions in the database that have been committed</description>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>DB:{#DBNAME} transactions rollbacked</name>
+                            <type>TRAP</type>
+                            <key>pgsql.dbstat.xact_rollback[{#DBNAME}]</key>
+                            <delay>0</delay>
+                            <history>1w</history>
+                            <description>Number of transactions in the database that have been rolled back</description>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>PostgreSQL replication discovery</name>
+                    <type>TRAP</type>
+                    <key>pgsql.replication.discovery</key>
+                    <delay>0</delay>
+                    <lifetime>1w</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Replication {#REPL_NAME} flush lag</name>
+                            <type>TRAP</type>
+                            <key>pgsql.replication.flush_lag[{#REPL_NAME}]</key>
+                            <delay>0</delay>
+                            <history>14d</history>
+                            <value_type>FLOAT</value_type>
+                            <units>s</units>
+                            <description>Time elapsed between flushing recent WAL locally and receiving notification that this standby server has written and flushed it (but not yet applied it). This can be used to gauge the delay that synchronous_commit level remote_flush incurred while committing if this server was configured as a synchronous standby</description>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL</name>
+                                </application>
+                            </applications>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{min(5m)}&gt;300</expression>
+                                    <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                                    <recovery_expression>{max(5m)}&lt;180</recovery_expression>
+                                    <name>PostgreSQL replication '{#REPL_NAME}': flush lag &gt; 5 mins on {HOST.NAME}</name>
+                                    <url>https://wiki/pgSQLFlushLagHigh</url>
+                                    <priority>HIGH</priority>
+                                    <tags>
+                                        <tag>
+                                            <tag>team</tag>
+                                            <value>Operations-DBA</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Replication {#REPL_NAME} replay lag</name>
+                            <type>TRAP</type>
+                            <key>pgsql.replication.replay_lag[{#REPL_NAME}]</key>
+                            <delay>0</delay>
+                            <history>14d</history>
+                            <value_type>FLOAT</value_type>
+                            <units>s</units>
+                            <description>Time elapsed between flushing recent WAL locally and receiving notification that this standby server has written, flushed and applied it. This can be used to gauge the delay that synchronous_commit level remote_apply incurred while committing if this server was configured as a synchronous standby</description>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Replication {#REPL_NAME} role</name>
+                            <type>TRAP</type>
+                            <key>pgsql.replication.role[{#REPL_NAME}]</key>
+                            <delay>0</delay>
+                            <history>14d</history>
+                            <trends>0</trends>
+                            <value_type>CHAR</value_type>
+                            <description>Role in replication - publicator or subscriptior</description>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL</name>
+                                </application>
+                            </applications>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{diff()}=1</expression>
+                                    <name>PostgreSQL replication '{#REPL_NAME}': role changed to {ITEM.VALUE} on {HOST.NAME}</name>
+                                    <url>https://wiki</url>
+                                    <priority>HIGH</priority>
+                                    <description>Alert can be fired, for example, when publicator and subscriptor roles was swapped on database servers in the cluster</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>team</tag>
+                                            <value>Operations-DBA</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Replication {#REPL_NAME} state</name>
+                            <type>TRAP</type>
+                            <key>pgsql.replication.state[{#REPL_NAME}]</key>
+                            <delay>0</delay>
+                            <history>14d</history>
+                            <trends>0</trends>
+                            <value_type>CHAR</value_type>
+                            <description>Current WAL sender state - one of:&#13;
+  * startup: This WAL sender is starting up.&#13;
+  * catchup: This WAL sender's connected standby is catching up with the primary.&#13;
+  * streaming: This WAL sender is streaming changes after its connected standby   * server has caught up with the primary.&#13;
+  * backup: This WAL sender is sending a backup.&#13;
+  * stopping: This WAL sender is stopping.</description>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL</name>
+                                </application>
+                            </applications>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{str(streaming)}=0&#13;
+and&#13;
+{nodata(5m)}=0</expression>
+                                    <name>PostgreSQL replication '{#REPL_NAME}': state is not 'streaming' on {HOST.NAME}</name>
+                                    <url>https://wiki</url>
+                                    <priority>HIGH</priority>
+                                    <description>Replication state is not 'streaming' in the database</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>team</tag>
+                                            <value>Operations-DBA</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Replication {#REPL_NAME} type</name>
+                            <type>TRAP</type>
+                            <key>pgsql.replication.type[{#REPL_NAME}]</key>
+                            <delay>0</delay>
+                            <history>14d</history>
+                            <trends>0</trends>
+                            <value_type>CHAR</value_type>
+                            <description>Type of replication - logical or physical</description>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Replication {#REPL_NAME} wal lsn diff</name>
+                            <type>TRAP</type>
+                            <key>pgsql.replication.wal_lsn_diff[{#REPL_NAME}]</key>
+                            <delay>0</delay>
+                            <history>14d</history>
+                            <units>B</units>
+                            <description>Lag in bytes between master and slave</description>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL</name>
+                                </application>
+                            </applications>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{min(5m)} &gt; 20M</expression>
+                                    <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                                    <recovery_expression>{max(5m)}  &lt; 10M</recovery_expression>
+                                    <name>PostgreSQL replication '{#REPL_NAME}': wal lsn diff &gt; 20 MiB on {HOST.NAME}</name>
+                                    <url>https://wiki/</url>
+                                    <priority>HIGH</priority>
+                                    <tags>
+                                        <tag>
+                                            <tag>team</tag>
+                                            <value>Operations-DBA</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Replication {#REPL_NAME} write lag</name>
+                            <type>TRAP</type>
+                            <key>pgsql.replication.write_lag[{#REPL_NAME}]</key>
+                            <delay>0</delay>
+                            <history>14d</history>
+                            <value_type>FLOAT</value_type>
+                            <units>s</units>
+                            <description>Time elapsed between flushing recent WAL locally and receiving notification that this standby server has written it (but not yet flushed it or applied it). This can be used to gauge the delay that synchronous_commit level remote_write incurred while committing if this server was configured as a synchronous standby</description>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+            <tags>
+                <tag>
+                    <tag>dashboard_url</tag>
+                    <value>https://grafana/d/qqq/postgresql-single-db?var-env={{env}}&amp;var-group=POP-{{client}}-{{country}}&amp;var-host={HOST.NAME}</value>
+                </tag>
+            </tags>
+        </template>
+        <template>
+            <template>Template PostgreSQL backups</template>
+            <name>Template PostgreSQL backups</name>
+            <description>Monitors backups, bakups validation etc.</description>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>PostgreSQL backup</name>
+                </application>
+                <application>
+                    <name>PostgreSQL backup validation</name>
+                </application>
+            </applications>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>PostgreSQL backup directories discovery</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>pgsql.backup.discovery</key>
+                    <delay>15m</delay>
+                    <lifetime>3d</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>DB backup files in {#DIR} updated in last 2 hours</name>
+                            <type>ZABBIX_ACTIVE</type>
+                            <key>pgsql.backup.files[{#DIR}]</key>
+                            <delay>15m</delay>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL backup</name>
+                                </application>
+                            </applications>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{max(2h)}=0</expression>
+                                    <name>PostgreSQL backup files in {#DIR} where not updated for last 2 hours on {HOST.NAME}</name>
+                                    <url>https://wiki</url>
+                                    <priority>AVERAGE</priority>
+                                    <description>Files in the backup directory did not change for 2 hours</description>
+                                    <dependencies>
+                                        <dependency>
+                                            <name>Zabbix agent on {HOST.NAME} is unreachable for 5 minutes</name>
+                                            <expression>{Template OS Linux - Active:agent.ping.nodata(5m)}=1</expression>
+                                        </dependency>
+                                    </dependencies>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>PostgreSQL DB available for backup</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>pgsql.bkp_db.discovery</key>
+                    <delay>6h</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>DB Availability of {#DB_HOST}</name>
+                            <type>ZABBIX_ACTIVE</type>
+                            <key>pgsql.bkp_db.conn_check[{#DB_HOST}]</key>
+                            <delay>1h</delay>
+                            <description>Status codes:&#13;
+0 - ok</description>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL backup validation</name>
+                                </application>
+                            </applications>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{min(6h)}&gt;0</expression>
+                                    <name>PostgreSQL backups: {#DB_HOST} is not available from {HOST.NAME}</name>
+                                    <url>https://wiki/</url>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>PostgreSQL backup validation job discovery</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>pgsql.pg_validate.discovery</key>
+                    <delay>15m</delay>
+                    <description>Detects whether backup validation systemd timer is installed on host</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>DB backup validation - last status</name>
+                            <type>ZABBIX_ACTIVE</type>
+                            <key>vfs.file.contents[{#PG_VALIDATE_STATUS_FILE}]</key>
+                            <delay>1h</delay>
+                            <description>status of the last validation. 0 = ok, 1 = failed</description>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL backup validation</name>
+                                </application>
+                            </applications>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}=1</expression>
+                                    <name>DB backup validation - last status is FAILED on {HOST.NAME}</name>
+                                    <url>https://wiki</url>
+                                    <priority>AVERAGE</priority>
+                                    <description>Status of last db backup validation is failed (contents of /var/tmp/pg_validate_status is 1)</description>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>DB backup validation - last time performed</name>
+                            <type>ZABBIX_ACTIVE</type>
+                            <key>vfs.file.time[{#PG_VALIDATE_STATUS_FILE}]</key>
+                            <delay>1h</delay>
+                            <units>unixtime</units>
+                            <applications>
+                                <application>
+                                    <name>PostgreSQL backup validation</name>
+                                </application>
+                            </applications>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{fuzzytime(25h)}=0&#13;
+or&#13;
+{nodata(25h)}=1</expression>
+                                    <name>DB backup validation job wasn't run for 25h on {HOST.NAME}</name>
+                                    <url>https://wiki</url>
+                                    <priority>AVERAGE</priority>
+                                    <dependencies>
+                                        <dependency>
+                                            <name>Zabbix agent on {HOST.NAME} is unreachable for 5 minutes</name>
+                                            <expression>{Template OS Linux - Active:agent.ping.nodata(5m)}=1</expression>
+                                        </dependency>
+                                    </dependencies>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+            <tags>
+                <tag>
+                    <tag>team</tag>
+                    <value>Operations-DBA</value>
+                </tag>
+            </tags>
+        </template>
+    </templates>
+    <triggers>
+        <trigger>
+            <expression>{Template PostgreSQL - Active:pgsql.db.availability.max(3m)}=0 and {Template PostgreSQL - Active:pgsql.collector.last_error.strlen()}&lt;&gt;-5</expression>
+            <name>PostgreSQL database not available on {HOST.NAME}</name>
+            <url>https://wiki</url>
+            <priority>DISASTER</priority>
+            <tags>
+                <tag>
+                    <tag>team</tag>
+                    <value>Operations-DBA</value>
+                </tag>
+            </tags>
+        </trigger>
+        <trigger>
+            <expression>{Template PostgreSQL - Active:pgsql.slots.inactive.min(15m)}&gt;{Template PostgreSQL - Active:pgsql.slots.total.max(15m)}&#13;
+and&#13;
+{Template PostgreSQL - Active:pgsql.slots.total.min(15m)} &gt; 0</expression>
+            <name>PostgreSQL RDS inactive slots on {HOST.NAME}</name>
+            <url>https://wiki/</url>
+            <priority>AVERAGE</priority>
+            <description>One or more replications slots are in 'inactive' state</description>
+            <dependencies>
+                <dependency>
+                    <name>PostgreSQL database not available on {HOST.NAME}</name>
+                    <expression>{Template PostgreSQL - Active:pgsql.db.availability.max(3m)}=0 and {Template PostgreSQL - Active:pgsql.collector.last_error.strlen()}&lt;&gt;-5</expression>
+                </dependency>
+            </dependencies>
+            <tags>
+                <tag>
+                    <tag>team</tag>
+                    <value>Operations-DBA</value>
+                </tag>
+            </tags>
+        </trigger>
+        <trigger>
+            <expression>{Template PostgreSQL - Active:pgsql.connections.total.min(5m)} &gt; {Template PostgreSQL - Active:pgsql.connections.max.avg(5m)}*0.75</expression>
+            <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+            <recovery_expression>{Template PostgreSQL - Active:pgsql.connections.total.max(5m)} &lt; {Template PostgreSQL - Active:pgsql.connections.max.avg(5m)}*0.60</recovery_expression>
+            <name>PostgreSQL uses more than 75% of available connections on {HOST.NAME}</name>
+            <url>https://wiki</url>
+            <priority>AVERAGE</priority>
+            <dependencies>
+                <dependency>
+                    <name>PostgreSQL database not available on {HOST.NAME}</name>
+                    <expression>{Template PostgreSQL - Active:pgsql.db.availability.max(3m)}=0 and {Template PostgreSQL - Active:pgsql.collector.last_error.strlen()}&lt;&gt;-5</expression>
+                </dependency>
+            </dependencies>
+            <tags>
+                <tag>
+                    <tag>team</tag>
+                    <value>Operations-DBA</value>
+                </tag>
+            </tags>
+        </trigger>
+    </triggers>
+    <value_maps>
+        <value_map>
+            <name>Service state</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>Down</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Up</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+    </value_maps>
+</zabbix_export>
