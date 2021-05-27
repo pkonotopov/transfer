@@ -175,26 +175,6 @@
                     <master_item>
                         <key>patroni.get.node_info[{HOST.IP}]</key>
                     </master_item>
-                    <triggers>
-                        <trigger>
-                            <expression>{max(5m)}=0</expression>
-                            <name>Patroni monitoring script doesn't work on {HOST.NAME}</name>
-                            <url>https://wiki</url>
-                            <priority>HIGH</priority>
-                            <dependencies>
-                                <dependency>
-                                    <name>Zabbix agent on {HOST.NAME} is unreachable for 5 minutes</name>
-                                    <expression>{Template OS Linux - Active:agent.ping.nodata(5m)}=1</expression>
-                                </dependency>
-                            </dependencies>
-                            <tags>
-                                <tag>
-                                    <tag>team</tag>
-                                    <value>Operations-Monitoring</value>
-                                </tag>
-                            </tags>
-                        </trigger>
-                    </triggers>
                 </item>
                 <item>
                     <name>Patroni agent role</name>

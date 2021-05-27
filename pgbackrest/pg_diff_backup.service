@@ -1,7 +1,0 @@
-[Unit]
-Description=PostgreSQL diff backup
-
-[Service]
-Type=simple
-User=postgres
-ExecStart=/etc/pgbackrest/scripts/pg_backup.sh --diff
