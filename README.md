@@ -23,11 +23,11 @@ sudo -u zabbix zabbix_agentd -t "custom.vfs.discover_disks"
 
 ### View result of low level discovery
 ```shell
-zabbix_get -s 127.0.0.1 -k "custom.vfs.discover_disks"
+zabbix_get -s zabbix.server.ip -k "custom.vfs.discover_disks"
 ```
 
 ### View statistics for 'sda' disk
 ```shell
-zabbix_get -s 127.0.0.1 -k "custom.vfs.dev.write.sectors[sda]"
+zabbix_get -s zabbix.server.ip -k "custom.vfs.dev.write.sectors[sda]"
 ```
 
